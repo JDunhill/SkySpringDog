@@ -2,6 +2,8 @@ package com.sky.spring.dog.rest;
 
 
 import com.sky.spring.dog.domain.Dog;
+import com.sky.spring.dog.services.DogService;
+import com.sky.spring.dog.services.DogServiceList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,68 +12,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+
 public class DogController {
 
-    private List<Dog> dogs = new ArrayList<>();
+    private DogService service;
 
-    /*@GetMapping("/hello")
-    public String hello() {
-        return "Hello, World";
-    }*/
+    public DogController(DogService service) {
+        this.service = service;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Dog> create(@RequestBody Dog dog) {
-
-        System.out.println("RECEIVED: " + dog);
-        this.dogs.add(dog);
-        Dog created = this.dogs.get(this.dogs.size() - 1);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity<>(this.service.create(dog), HttpStatus.CREATED);
     }
 
     @PostMapping("/createMultiple")
-    public List<Dog> create(@RequestBody List<Dog> newDogs) {
-        for(Dog dog : newDogs) {
-            this.dogs.add(dog);
+    public ResponseEntity<List<Dog>> create(@RequestBody List<Dog> newDogs) {
+        System.out.println("RECEIVED. Added: " + newDogs.size() + " dogs.");
+        if (this.service.create(newDogs) != null) {
+
+            return new ResponseEntity<>(newDogs, HttpStatus.CREATED);
+        } else {
+            return  ResponseEntity.internalServerError().build();
         }
-        System.out.println("RECEIVED. Added: " + this.dogs.size() + " dogs.");
-        return this.dogs;
     }
 
 
     @GetMapping("/getAll")
     public List<Dog> getAll() {
-        System.out.println(this.dogs);
-        return this.dogs;
+        return this.service.getAll();
     }
 
     @GetMapping("/get/{id}")
     public Dog getById(@PathVariable int id) {
-        System.out.println("ID: " + id);
-        System.out.println(this.dogs.get(id));
-        return this.dogs.get(id);
+        return this.service.getById(id);
     }
 
    @PatchMapping("/update/{id}")
-    public Dog update(
-            @PathVariable int id,
-            @RequestParam("name") String name,
-            @RequestParam("colour") String colour,
-            @RequestParam("age") Integer age) {
-
-
-        Dog toUpdate = this.dogs.get(id);
-        toUpdate.setName(name);
-        toUpdate.setAge(age);
-        toUpdate.setColour(colour);
-       System.out.println("UPDATE: Dog ID: " + id + " was updated. It is now: " + this.dogs.get(id) + ".");
-        return dogs.get(id);
-
+    public Dog update(@PathVariable int id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "colour", required = false) String colour, @RequestParam(value = "age", required = false) Integer age) {
+        return this.service.update(id, name, colour, age);
    }
 
    @DeleteMapping("/delete/{id}")
     public Dog delete(@PathVariable int id) {
-       System.out.println("DELETED. Dog at ID: " + id + " was deleted.");
-       return this.dogs.remove(id);
+       return this.service.delete(id);
    }
 
 
