@@ -21,11 +21,12 @@ public class DogController {
     }*/
 
     @PostMapping("/create")
-    public Dog create(@RequestBody Dog dog) {
+    public ResponseEntity<Dog> create(@RequestBody Dog dog) {
 
         System.out.println("RECEIVED: " + dog);
         this.dogs.add(dog);
-        return this.dogs.get(this.dogs.size() - 1);
+        Dog created = this.dogs.get(this.dogs.size() - 1);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @PostMapping("/createMultiple")
@@ -54,9 +55,9 @@ public class DogController {
    @PatchMapping("/update/{id}")
     public Dog update(
             @PathVariable Integer id,
-            @PathParam("name") String name,
-            @PathParam("colour") String colour,
-            @PathParam("age") Integer age) {
+            @RequestParam("name") String name,
+            @RequestParam("colour") String colour,
+            @RequestParam("age") Integer age) {
 
 
         Dog toUpdate = this.dogs.get(id);
