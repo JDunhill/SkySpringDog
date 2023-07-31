@@ -51,12 +51,29 @@ public class DogController {
         return this.dogs.get(id);
     }
 
-  /* @PatchMapping("/update/{id}")
+   @PatchMapping("/update/{id}")
     public Dog update(
             @PathVariable Integer id,
             @PathParam("name") String name,
             @PathParam("colour") String colour,
-            @PathParam("age") Integer age) {}*/
+            @PathParam("age") Integer age) {
+
+
+        Dog toUpdate = this.dogs.get(id);
+        toUpdate.setName(name);
+        toUpdate.setAge(age);
+        toUpdate.setColour(colour);
+       System.out.println("UPDATE: Dog ID: " + id + " was updated. It is now: " + this.dogs.get(id) + ".");
+        return dogs.get(id);
+
+   }
+
+   @DeleteMapping("/delete/{id}")
+    public boolean delete(@PathVariable Integer id) {
+       System.out.println("DELETED. Dog at ID: " + id + " was deleted.");
+       return this.dogs.remove(id);
+   }
+
 
 
 

@@ -6,10 +6,10 @@ public class Dog {
 
     private String colour;
 
-    private int age;
+    private Integer age;
 
 
-    public Dog(String name, String colour, int age) {
+    public Dog(String name, String colour, Integer age) {
         this.name = name;
         this.colour = colour;
         this.age = age;
@@ -35,11 +35,11 @@ public class Dog {
         this.colour = colour;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
