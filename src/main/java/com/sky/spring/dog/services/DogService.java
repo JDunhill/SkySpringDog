@@ -18,8 +18,9 @@ public interface DogService {
 
     Dog update(int id, String name, String colour, Integer age);
 
-    Dog delete(int id);
+    Dog remove(int id);
 
+    List<Dog> deleteByName(String name);
 
 
 }

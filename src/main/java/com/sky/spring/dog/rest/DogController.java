@@ -54,9 +54,15 @@ public class DogController {
    }
 
    @DeleteMapping("/delete/{id}")
-    public Dog delete(@PathVariable int id) {
-       return this.service.delete(id);
+    public Dog remove(@PathVariable int id) {
+       return this.service.remove(id);
    }
+
+   @DeleteMapping("/deleteByName/{name}")
+    public List<Dog> deleteByName(@PathVariable String name) {
+        return this.service.deleteByName(name);
+   }
+
 
 
 

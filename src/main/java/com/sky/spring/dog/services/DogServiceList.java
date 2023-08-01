@@ -11,7 +11,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
-@Primary
+/*@Primary*/
 @Service
 public class DogServiceList implements DogService {
 
@@ -57,11 +57,17 @@ public class DogServiceList implements DogService {
     }
 
     @Override
-    public Dog delete(int id) {
+    public Dog remove(int id) {
         System.out.println("DELETED. Dog at ID: " + id + " was deleted.");
         return this.dogs.remove(id);
     }
 
-
-
+    @Override
+    public List<Dog> deleteByName(String name) {
+        List<Dog> toDelete = new ArrayList<>();
+        for (Dog d : this.dogs) {
+            if (name.equals(d.getName())) toDelete.remove(d);
+        }
+        return toDelete;
+    }
 }
