@@ -4,8 +4,10 @@ package com.sky.spring.dog.rest;
 import com.sky.spring.dog.domain.Dog;
 import com.sky.spring.dog.services.DogService;
 import com.sky.spring.dog.services.DogServiceList;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class DogController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Dog> create(@RequestBody Dog dog) {
+    public ResponseEntity<Dog> create(@RequestBody @Validated Dog dog) {
         return new ResponseEntity<>(this.service.create(dog), HttpStatus.CREATED);
     }
 

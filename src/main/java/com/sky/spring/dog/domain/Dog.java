@@ -1,5 +1,7 @@
 package com.sky.spring.dog.domain;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class Dog {
 
     private String colour;
 
+    @Range(min = 0, max = 32)
     private Integer age;
 
 

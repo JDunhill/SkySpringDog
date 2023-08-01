@@ -1,6 +1,7 @@
 package com.sky.spring.dog.services;
 
 import com.sky.spring.dog.domain.Dog;
+import com.sky.spring.dog.exceptions.DogNotFoundException;
 import com.sky.spring.dog.repos.DogRepo;
 
 import org.springframework.context.annotation.Primary;
@@ -36,7 +37,8 @@ public class DogServiceDB implements DogService {
 
     @Override
     public Dog getById(int id) {
-        return this.repo.findById(id).get();
+        Dog actualDog = this.repo.findById(id).orElseThrow(() -> new DogNotFoundException());
+        return actualDog;
     }
 
     @Override
