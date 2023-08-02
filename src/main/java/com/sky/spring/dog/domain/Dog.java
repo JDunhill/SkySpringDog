@@ -1,5 +1,6 @@
 package com.sky.spring.dog.domain;
 
+//import com.sky.spring.dog.annotations.ValidateString;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
@@ -17,12 +18,27 @@ public class Dog {
 
     private String name;
 
+//    @ValidateString(acceptedValues={"Brown", "Merle", "Gold", "Black"} )
     private String colour;
 
     @Range(min = 0, max = 32)
     private Integer age;
 
 
+    public Dog(Integer id, String name, String colour, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.colour = colour;
+        this.age = age;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Dog(String name, String colour, Integer age) {
         this.name = name;
