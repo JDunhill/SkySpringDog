@@ -6,8 +6,8 @@ import com.sky.spring.dog.repos.DogRepo;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Primary
@@ -60,6 +60,7 @@ public class DogServiceDB implements DogService {
     }
 
     @Override
+    @Transactional
     public List<Dog> deleteByName(String name) {
         List<Dog> toDelete = this.repo.findByName(name);
         this.repo.deleteByName(name);
