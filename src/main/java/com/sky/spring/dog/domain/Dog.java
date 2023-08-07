@@ -3,10 +3,8 @@ package com.sky.spring.dog.domain;
 //import com.sky.spring.dog.annotations.ValidateString;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Dog {
@@ -24,12 +22,23 @@ public class Dog {
     @Range(min = 0, max = 32)
     private Integer age;
 
+    @ManyToOne(targetEntity = Home.class)
+    private Home home;
+
 
     public Dog(Integer id, String name, String colour, Integer age) {
         this.id = id;
         this.name = name;
         this.colour = colour;
         this.age = age;
+    }
+
+    public Home getHome() {
+        return home;
+    }
+
+    public void setHome(Home home) {
+        this.home = home;
     }
 
     public Integer getId() {
@@ -81,5 +90,18 @@ public class Dog {
                 ", colour='" + colour + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dog dog = (Dog) o;
+        return Objects.equals(id, dog.id) && Objects.equals(name, dog.name) && Objects.equals(colour, dog.colour) && Objects.equals(age, dog.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, colour, age);
     }
 }
