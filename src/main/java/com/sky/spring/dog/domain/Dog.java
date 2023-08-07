@@ -33,6 +33,13 @@ public class Dog {
         this.age = age;
     }
 
+    public Dog(String name, String colour, Integer age, Home home) {
+        this.name = name;
+        this.colour = colour;
+        this.age = age;
+        this.home = home;
+    }
+
     public Home getHome() {
         return home;
     }
