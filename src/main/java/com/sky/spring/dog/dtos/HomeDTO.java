@@ -1,27 +1,17 @@
-package com.sky.spring.dog.domain;
+package com.sky.spring.dog.dtos;
 
-import javax.persistence.*;
+import com.sky.spring.dog.domain.Dog;
+
 import java.util.List;
 
-@Entity
-public class Home {
+public class HomeDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
 
     private String address;
 
-    @OneToMany(mappedBy = "home")
     private List<Dog> dogs;
-
-    public Home() {
-    }
-
-    public Home(int id, String address) {
-        this.id = id;
-        this.address = address;
-    }
 
     public int getId() {
         return id;

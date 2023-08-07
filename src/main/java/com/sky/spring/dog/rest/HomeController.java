@@ -2,6 +2,7 @@ package com.sky.spring.dog.rest;
 
 import com.sky.spring.dog.domain.Home;
 import com.sky.spring.dog.domain.Home;
+import com.sky.spring.dog.dtos.HomeDTO;
 import com.sky.spring.dog.services.HomeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class HomeController {
 
 
     @GetMapping("/getAll")
-    public List<Home> getAll() {
+    public List<HomeDTO> getAll() {
         return this.service.getAll();
     }
 
